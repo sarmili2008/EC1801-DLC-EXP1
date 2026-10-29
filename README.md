@@ -20,12 +20,40 @@ exp1_boolean_min_tb.v	Verilog testbench
 exp1_boolean_min.vcd	VCD waveform dump generated during simulation
 
 ## Verilog Program
-
+```
+module boolean(
+       input wire a,b,
+       output wire y
+);
+       assign y = (~a)|b;
+endmodule
+```
 
 
 ## TestBench Program
 
+```
 
+module tb;
+reg a, b;
+wire y;
+boolean uut (.a(a), .b(b), .y(y));
+initial begin
+        // ---- VCD dump setup ----
+        $dumpfile("boolean.vcd");   // name of the VCD file to be generated
+        $dumpvars(0, tb);   // dump all signals in this testbench hierarchy
+
+	$monitor("a=%b b=%b y=%b", 
+	a,b,y);
+	a=0; b=0; #10;
+	a =0; b=1; #10;
+	a =1; b=0; #10;
+	a =1; b=1; #10;
+	$finish;
+	end
+endmodule
+
+```
 
 
 
@@ -34,7 +62,8 @@ exp1_boolean_min.vcd	VCD waveform dump generated during simulation
     
 ## Truth Table
  
-<img width="795" height="311" alt="image" src="https://github.com/user-attachments/assets/dd4ba5b9-016b-4ae5-a693-f309c60c4c0e" />
+
+<img width="1532" height="158" alt="Screenshot 2026-10-27 083420" src="https://github.com/user-attachments/assets/16c67a19-7d76-4058-8111-cb9286c1ddb9" />
 
 ## Simulation Procedure
 STEP 1 – Open Terminal
@@ -85,24 +114,11 @@ and successfully implemented using Verilog HDL.
 
 ## OUTPUT
 
+<img width="1128" height="180" alt="Screenshot 2026-10-27 083441" src="https://github.com/user-attachments/assets/a9be0be9-e949-43de-a477-b4d75cbe654f" />
 
 
 The design was compiled and simulated using Synopsys VCS, and the functionality was verified using DVE waveform analysis.
-7. Viva-Voce Questions
-1.	What is Boolean function minimization?
-2.	What is a minterm?
-3.	What is a Karnaugh map?
-4.	Why is Boolean minimization required?
-5.	What are universal gates?
-6.	What is the difference between SOP and POS?
-7.	What is the purpose of a Verilog testbench?
-8.	Why is a VCD file generated?
-9.	What is the purpose of ./simv?
-10.	What is the purpose of DVE?
-11.	What is the difference between simulation and synthesis?
-12.	Why are A and C absent from the minimized expression?
-13.	What is the purpose of $dumpfile?
-14.	What is the purpose of $dumpvars?
+
 
 Result
 Thus, the Boolean function was minimized, implemented using Verilog HDL, successfully simulated using Synopsys VCS, and verified using Synopsys DVE.
